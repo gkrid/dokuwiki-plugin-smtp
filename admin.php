@@ -66,6 +66,25 @@ class admin_plugin_smtp extends DokuWiki_Admin_Plugin {
         $form->addElement(form_makeButton('submit', '', 'Send Email'));
 
         $form->printForm();
+
+        echo '<h1>SMTP Config</h1>';
+        echo '<table><tr>';
+        echo '<th>Host</th><td>' . $this->getConf('smtp_host') . '</td>';
+        echo '<th>Port</th><td>' . $this->getConf('smtp_port') . '</td>';
+        $ssl = $this->getConf('smtp_ssl');
+        if ($ssl == '') {
+            $ssl = 'off';
+        }
+        echo '<th>SSL</th><td>' . $ssl . '</td>';
+        echo '</tr></table>';
+
+        echo '<table><tr>';
+        echo '<th>User</th><td>' . $this->getConf('auth_user')  . '</td>';
+        $pass = $this->getConf('auth_pass');
+        echo '<th>Password</th><td>' . str_repeat('●', strlen($pass))  .
+            '<button onclick="jQuery(this).parent().text(\'' .  htmlspecialchars($pass) . '\')">Show</button></td>';
+        echo '<th>Localdomain</th><td>' . $this->getConf('localdomain') . '</td>';
+        echo '</tr></table>';
     }
 
 }
